@@ -7,6 +7,8 @@ export default defineConfig({
   testDir: './e2e',
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
+  // Every test renders an animated WebGL scene; more pages at once starve each other of frames.
+  workers: 4,
   reporter: process.env.CI ? 'github' : 'list',
   use: {
     baseURL,
