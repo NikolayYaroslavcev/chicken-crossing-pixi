@@ -1,0 +1,1055 @@
+/* Shell */
+
+.shell {
+  display: grid;
+  grid-template-rows: auto minmax(220px, 1fr) auto;
+  gap: var(--space-3);
+  width: 100%;
+  max-width: var(--shell-max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-5) var(--space-5);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shell > * {
+    animation: rise 480ms var(--ease-out) both;
+  }
+
+  .shell > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  .shell > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+/* Header */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  min-height: 52px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.brand__mark {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  transform: rotate(-6deg);
+}
+
+.brand__name {
+  white-space: nowrap;
+}
+
+.brand__accent {
+  color: var(--color-primary);
+}
+
+.header__end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.balance {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+.balance__label {
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.balance__value {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.balance__value[data-trend='up'] {
+  --trend-color: var(--color-success);
+}
+
+.balance__value[data-trend='down'] {
+  --trend-color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .balance__value[data-trend] {
+    animation: balance-change 900ms var(--ease-out);
+  }
+}
+
+@keyframes balance-change {
+  from {
+    color: var(--trend-color);
+    transform: translateY(-2px);
+  }
+}
+
+.header__tools {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.icon-button {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    transform 120ms;
+}
+
+.icon-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.icon-button:hover:not(:disabled) {
+  border-color: var(--color-border-strong);
+  background: var(--color-surface-elevated);
+}
+
+.icon-button:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.icon-button[aria-pressed='false'] {
+  color: var(--color-text-muted);
+}
+
+.icon-button:disabled {
+  border-style: dashed;
+  background: transparent;
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+/* Game area */
+
+.stage {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-sunken);
+  box-shadow: 0 18px 40px -24px rgb(0 0 0 / 0.8);
+}
+
+/* Inner edge drawn above the canvas so the frame reads cleanly against the bright sky. */
+.stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+  pointer-events: none;
+}
+
+.game-canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.game-canvas canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+/* The round result means nothing until the scene is there to play it. */
+.stage:has(.game-canvas:not([data-status='ready'])) .stage__overlay {
+  display: none;
+}
+
+/* Loading and failure sit where the scene will be, above the empty stage. */
+.stage-status {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.stage-status p {
+  margin: 0;
+}
+
+.stage-status__title {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.stage-status__text {
+  max-width: 32ch;
+  font-size: var(--text-body);
+}
+
+.stage-status__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid color-mix(in srgb, var(--color-primary) 22%, transparent);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stage-status__spinner {
+    animation: spin 900ms linear infinite;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.stage-status--failed > [role='alert'] {
+  display: grid;
+  gap: var(--space-1);
+  justify-items: center;
+}
+
+.stage-status .button--retry {
+  --button-bg: var(--color-primary);
+  --button-fg: var(--color-on-primary);
+  --button-lip: var(--color-primary-lip);
+  margin-top: var(--space-1);
+  padding-inline: var(--space-6);
+}
+
+.stage__overlay {
+  position: absolute;
+  top: var(--space-3);
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.result {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  min-width: 168px;
+  padding: var(--space-2) var(--space-5) 10px;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  border-radius: var(--radius-md);
+  background: rgb(16 18 25 / 0.84);
+  box-shadow: 0 6px 18px -8px rgb(0 0 0 / 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.result__main {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.result__label {
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.result__value {
+  font-family: var(--font-display);
+  font-size: var(--text-heading);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.result__detail {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.result__progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.result__progress span {
+  display: block;
+  height: 100%;
+  background: var(--result-accent, var(--color-primary));
+  transition: width 420ms var(--ease-out);
+}
+
+.result[data-tone='live'] {
+  --result-accent: var(--color-primary);
+}
+
+.result[data-tone='success'] {
+  --result-accent: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 45%, transparent);
+}
+
+.result[data-tone='danger'] {
+  --result-accent: var(--color-danger);
+  border-color: color-mix(in srgb, var(--color-danger) 45%, transparent);
+}
+
+.result[data-tone='live'] .result__value {
+  color: var(--color-primary);
+}
+
+.result[data-tone='success'] .result__value {
+  color: var(--color-success);
+}
+
+.result[data-tone='danger'] .result__value {
+  color: var(--color-danger);
+}
+
+/* A round's outcome reads bigger than the running multiplier. */
+.result:is([data-tone='success'], [data-tone='danger']) .result__value {
+  font-size: var(--text-display);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .result:is([data-tone='success'], [data-tone='danger']) {
+    animation: result-in 360ms var(--ease-out);
+  }
+}
+
+@keyframes result-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.96);
+  }
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  max-width: min(340px, calc(100vw - 2 * var(--space-6)));
+  padding: 6px var(--space-3);
+  border: 1px solid color-mix(in srgb, var(--color-danger) 40%, transparent);
+  border-radius: var(--radius-sm);
+  background: rgb(16 18 25 / 0.9);
+  font-size: 0.8125rem;
+  color: var(--color-text);
+}
+
+.notice__icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+  color: var(--color-danger);
+}
+
+/* Control panel */
+
+.panel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(220px, 260px) minmax(0, 1fr) minmax(280px, 320px);
+  align-items: start;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  overflow: hidden;
+  /* Its own overflow would let the shell row squeeze it and clip the buttons; the page scrolls instead. */
+  min-height: min-content;
+}
+
+/* Road centre line along the top edge: the one decorative motif tying the panel to the scene. */
+.panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--space-6);
+  right: var(--space-6);
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: repeating-linear-gradient(90deg, var(--color-primary) 0 22px, transparent 22px 36px);
+  opacity: 0.55;
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.field__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.field__label {
+  line-height: 16px;
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+legend.field__label {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: var(--space-2);
+}
+
+legend .field__aside {
+  letter-spacing: normal;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.field__aside {
+  line-height: 16px;
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.field__error {
+  font-size: 0.8125rem;
+  color: var(--color-danger);
+}
+
+.field__error::before {
+  content: '! ';
+  font-weight: 800;
+}
+
+/* Bet */
+
+.bet__box {
+  display: grid;
+  grid-template-columns: var(--control-height) minmax(0, 1fr) var(--control-height);
+  align-items: center;
+  height: calc(var(--control-height) + 8px);
+  padding: var(--space-1);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-sunken);
+  transition: border-color 150ms;
+}
+
+.bet__box:focus-within {
+  border-color: var(--color-focus);
+}
+
+.bet__box[data-invalid] {
+  border-color: var(--color-danger);
+}
+
+.bet__step {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-elevated);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    background-color 150ms,
+    transform 120ms;
+}
+
+.bet__step:hover:not(:disabled) {
+  background: var(--color-border-strong);
+}
+
+.bet__step:active:not(:disabled) {
+  transform: scale(0.92);
+}
+
+.bet__step:disabled {
+  opacity: 0.35;
+}
+
+.bet__amount {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-numeric);
+  font-weight: 800;
+}
+
+.bet__currency {
+  color: var(--color-primary);
+}
+
+.bet__input {
+  width: 6ch;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+.bet__input:focus {
+  outline: none;
+}
+
+.bet__input:disabled {
+  color: var(--color-text-muted);
+}
+
+.bet__presets {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1);
+}
+
+.chip {
+  position: relative;
+  height: 30px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-sunken);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+  transition:
+    background-color 150ms,
+    border-color 150ms,
+    color 150ms;
+}
+
+/* The chip stays compact but takes touches across a 44px band, into the gaps around it. */
+.chip::after {
+  content: '';
+  position: absolute;
+  inset: -7px -2px;
+}
+
+.chip:hover:not(:disabled) {
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+}
+
+.chip[aria-pressed='true'] {
+  border-color: color-mix(in srgb, var(--color-primary) 60%, transparent);
+  color: var(--color-primary);
+}
+
+.chip:disabled {
+  opacity: 0.45;
+}
+
+/* Difficulty */
+
+.difficulty__options {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-1);
+  height: calc(var(--control-height) + 8px);
+  padding: var(--space-1);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-sunken);
+}
+
+.difficulty__option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: center;
+  column-gap: var(--space-2);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition:
+    background-color 150ms,
+    color 150ms;
+}
+
+.difficulty__option:hover {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.difficulty__option:has(:checked) {
+  background: var(--color-surface-elevated);
+  color: var(--color-text);
+  box-shadow:
+    inset 0 0 0 1px var(--color-border-strong),
+    inset 0 -3px 0 var(--color-primary);
+}
+
+.difficulty__option:has(:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 1px;
+}
+
+.difficulty:disabled .difficulty__option {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.difficulty:disabled .difficulty__option:hover {
+  background: none;
+}
+
+.difficulty__name {
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 800;
+}
+
+.difficulty__meta {
+  grid-column: 1 / -1;
+  font-size: var(--text-label);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-text-muted);
+}
+
+.difficulty__risk {
+  grid-row: 1;
+  grid-column: 2;
+  display: flex;
+  gap: 2px;
+  align-self: center;
+}
+
+.difficulty__risk span {
+  width: 4px;
+  height: 10px;
+  border-radius: 2px;
+  background: var(--color-border-strong);
+}
+
+.difficulty__risk span[data-on] {
+  background: var(--color-primary);
+}
+
+.difficulty__option[data-level='hardcore'] .difficulty__risk span[data-on] {
+  background: var(--color-danger);
+}
+
+.difficulty__summary {
+  display: none;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.difficulty__summary strong {
+  color: var(--color-text);
+}
+
+/* Actions */
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    'go cash'
+    'play play';
+  gap: var(--space-2);
+}
+
+.button {
+  --button-bg: var(--color-surface-elevated);
+  --button-fg: var(--color-text);
+  --button-lip: var(--color-surface-sunken);
+  --button-tone: var(--color-text);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  height: 44px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--button-bg);
+  color: var(--button-fg);
+  box-shadow: 0 var(--lip) 0 var(--button-lip);
+  font-family: var(--font-display);
+  font-size: var(--text-body);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition:
+    background-color 150ms,
+    transform 90ms,
+    box-shadow 90ms;
+}
+
+.button:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(calc(var(--lip) - 1px));
+  box-shadow: 0 1px 0 var(--button-lip);
+}
+
+/* Disabled buttons look unlit: no raised lip, dimmed colour, and no pointer feedback. */
+.button:disabled {
+  --button-lip: transparent;
+  transform: translateY(calc(var(--lip) - 1px));
+  background: color-mix(in srgb, var(--button-tone) 10%, var(--color-surface));
+  color: color-mix(in srgb, var(--button-tone) 55%, var(--color-surface));
+  border-color: color-mix(in srgb, var(--button-tone) 30%, var(--color-surface));
+}
+
+.button__icon {
+  width: 18px;
+  height: 18px;
+}
+
+.button--go {
+  grid-area: go;
+  --button-fg: var(--color-success);
+  --button-tone: var(--color-success);
+}
+
+.button--go:not(:disabled) {
+  --button-bg: var(--color-success);
+  --button-fg: #0d2a14;
+  --button-lip: #3c9a50;
+}
+
+.button {
+  white-space: nowrap;
+}
+
+/* With an amount the cash out label stacks: the sum stays readable on narrow buttons. */
+.button--cash:has(.button__amount) {
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.05;
+  font-size: 0.8125rem;
+}
+
+.button__amount {
+  font-size: var(--text-body);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.button--cash:not(:disabled) {
+  --button-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+
+.actions__keys {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  min-height: 18px;
+  font-size: var(--text-label);
+  color: var(--color-text-muted);
+}
+
+.actions__keys kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--color-border-strong);
+  border-bottom-width: 2px;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+@media (hover: none) {
+  .actions__keys {
+    display: none;
+  }
+}
+
+.button--cash {
+  grid-area: cash;
+  --button-bg: transparent;
+  --button-fg: var(--color-primary);
+  --button-lip: transparent;
+  --button-tone: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.button--play {
+  grid-area: play;
+  --button-bg: var(--color-primary);
+  --button-fg: var(--color-on-primary);
+  --button-lip: var(--color-primary-lip);
+  --button-tone: var(--color-primary);
+  height: 56px;
+  font-size: var(--text-heading);
+  letter-spacing: 0.12em;
+}
+
+.button--play:hover:not(:disabled) {
+  filter: none;
+  background: var(--color-primary-hover);
+}
+
+/* Below wide desktop the options drop the step/trap line and keep the risk pips. */
+@media (max-width: 1279px) {
+  .difficulty__option {
+    padding: 0 var(--space-2);
+    justify-items: center;
+    grid-template-columns: 1fr;
+    row-gap: 3px;
+  }
+
+  .difficulty__meta {
+    display: none;
+  }
+
+  .difficulty__summary {
+    display: block;
+  }
+
+  .difficulty__risk {
+    grid-row: 2;
+    grid-column: 1;
+  }
+
+  .difficulty__risk span {
+    width: 6px;
+    height: 3px;
+  }
+}
+
+/* Tablet: inputs side by side, actions on one row underneath. */
+@media (max-width: 1023px) {
+  .shell {
+    padding: var(--space-3) var(--space-4) var(--space-4);
+  }
+
+  .panel {
+    grid-template-columns: minmax(200px, 0.8fr) minmax(0, 1.4fr);
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+
+  .actions {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-areas: 'go cash play';
+    align-items: start;
+  }
+}
+
+/* Phone: everything stacks; the game keeps the space. */
+@media (max-width: 639px) {
+  .shell {
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3) var(--space-3);
+  }
+
+  .header {
+    min-height: 48px;
+    gap: var(--space-2);
+  }
+
+  .brand {
+    gap: var(--space-2);
+    font-size: var(--text-heading);
+  }
+
+  .brand__mark {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand__name {
+    display: grid;
+    line-height: 1;
+  }
+
+  .header__end {
+    gap: var(--space-2);
+  }
+
+  .balance {
+    padding: 6px var(--space-3);
+  }
+
+  .header__tools {
+    gap: var(--space-1);
+  }
+
+  .stage {
+    border-radius: var(--radius-md);
+  }
+
+  .stage__overlay {
+    top: var(--space-2);
+  }
+
+  .panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+  }
+
+  .panel::before {
+    left: var(--space-4);
+    right: var(--space-4);
+  }
+
+  .actions {
+    grid-column: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'go cash'
+      'play play';
+  }
+
+  .field {
+    gap: 6px;
+  }
+
+  .difficulty__summary {
+    display: none;
+  }
+
+  .bet__box {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+  }
+
+  .button--play {
+    height: 52px;
+  }
+}
+
+/* Short landscape (phones on their side): the game takes the left, the controls a column on the
+   right, so neither pushes the other below the fold. */
+@media (orientation: landscape) and (max-height: 560px) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: var(--space-2) var(--space-3);
+    padding: var(--space-2) var(--space-4) var(--space-3);
+  }
+
+  .header {
+    grid-column: 1 / -1;
+    min-height: 44px;
+  }
+
+  .balance {
+    padding: 4px var(--space-3);
+  }
+
+  .panel {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+
+  .difficulty__summary {
+    display: none;
+  }
+
+  .difficulty__option {
+    padding: 0 2px;
+  }
+
+  .difficulty__name {
+    font-size: 0.875rem;
+  }
+
+  .actions {
+    grid-column: auto;
+    grid-template-columns: 1fr 1fr 1.2fr;
+    grid-template-areas: 'go cash play';
+  }
+
+  .button {
+    padding: 0 var(--space-2);
+  }
+
+  .button--play {
+    height: 44px;
+    font-size: var(--text-body);
+  }
+}

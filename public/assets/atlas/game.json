@@ -1,0 +1,644 @@
+{
+  "frames": {
+    "car_hatchback_base": {
+      "frame": {
+        "x": 464,
+        "y": 2,
+        "w": 152,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 152,
+        "h": 224
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "car_hatchback_details": {
+      "frame": {
+        "x": 772,
+        "y": 2,
+        "w": 152,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 152,
+        "h": 224
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "car_hatchback_paint": {
+      "frame": {
+        "x": 618,
+        "y": 2,
+        "w": 152,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 152,
+        "h": 224
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "car_pickup_base": {
+      "frame": {
+        "x": 2,
+        "y": 228,
+        "w": 152,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 152,
+        "h": 224
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "car_pickup_details": {
+      "frame": {
+        "x": 310,
+        "y": 228,
+        "w": 152,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 152,
+        "h": 224
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "car_pickup_paint": {
+      "frame": {
+        "x": 156,
+        "y": 228,
+        "w": 152,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 152,
+        "h": 224
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "car_sedan_base": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 152,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 152,
+        "h": 224
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "car_sedan_details": {
+      "frame": {
+        "x": 310,
+        "y": 2,
+        "w": 152,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 152,
+        "h": 224
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "car_sedan_paint": {
+      "frame": {
+        "x": 156,
+        "y": 2,
+        "w": 152,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 152,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 152,
+        "h": 224
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "chicken_dead_0": {
+      "frame": {
+        "x": 212,
+        "y": 648,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_dead_1": {
+      "frame": {
+        "x": 422,
+        "y": 648,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_dead_2": {
+      "frame": {
+        "x": 632,
+        "y": 648,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_dead_3": {
+      "frame": {
+        "x": 2,
+        "y": 842,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_idle_0": {
+      "frame": {
+        "x": 464,
+        "y": 228,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_idle_1": {
+      "frame": {
+        "x": 674,
+        "y": 228,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_idle_2": {
+      "frame": {
+        "x": 2,
+        "y": 454,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_jump_0": {
+      "frame": {
+        "x": 212,
+        "y": 454,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_jump_1": {
+      "frame": {
+        "x": 422,
+        "y": 454,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_jump_2": {
+      "frame": {
+        "x": 632,
+        "y": 454,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_jump_3": {
+      "frame": {
+        "x": 2,
+        "y": 648,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_shadow": {
+      "frame": {
+        "x": 212,
+        "y": 1036,
+        "w": 112,
+        "h": 36
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 112,
+        "h": 36
+      },
+      "sourceSize": {
+        "w": 112,
+        "h": 36
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "chicken_win_0": {
+      "frame": {
+        "x": 212,
+        "y": 842,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_win_1": {
+      "frame": {
+        "x": 422,
+        "y": 842,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_win_2": {
+      "frame": {
+        "x": 632,
+        "y": 842,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    },
+    "chicken_win_3": {
+      "frame": {
+        "x": 2,
+        "y": 1036,
+        "w": 208,
+        "h": 192
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 208,
+        "h": 192
+      },
+      "sourceSize": {
+        "w": 208,
+        "h": 192
+      },
+      "anchor": {
+        "x": 0.5,
+        "y": 0.8958333333333334
+      }
+    }
+  },
+  "animations": {
+    "chicken_idle": [
+      "chicken_idle_0",
+      "chicken_idle_1",
+      "chicken_idle_0",
+      "chicken_idle_1",
+      "chicken_idle_0",
+      "chicken_idle_1",
+      "chicken_idle_2",
+      "chicken_idle_0"
+    ],
+    "chicken_jump": [
+      "chicken_jump_0",
+      "chicken_jump_1",
+      "chicken_jump_2",
+      "chicken_jump_3"
+    ],
+    "chicken_dead": [
+      "chicken_dead_0",
+      "chicken_dead_1",
+      "chicken_dead_2",
+      "chicken_dead_3"
+    ],
+    "chicken_win": [
+      "chicken_win_0",
+      "chicken_win_1",
+      "chicken_win_2",
+      "chicken_win_3"
+    ]
+  },
+  "meta": {
+    "app": "scripts/atlas/build.ts",
+    "image": "game.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 926,
+      "h": 1230
+    },
+    "scale": "2"
+  }
+}

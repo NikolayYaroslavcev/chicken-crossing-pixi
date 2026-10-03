@@ -1,0 +1,50 @@
+:root {
+  /* Palette: a dusk-asphalt shell around the daylight scene, egg-yolk as the action colour. */
+  --color-background: #14161d;
+  --color-background-glow: #22304a;
+  --color-surface: #1c1f28;
+  --color-surface-elevated: #262a36;
+  --color-surface-sunken: #101219;
+  --color-text: #f5f1e8;
+  --color-text-muted: #9ca2b1;
+  --color-primary: #ffcf4a;
+  --color-primary-hover: #ffdb73;
+  --color-primary-lip: #c4921a;
+  --color-on-primary: #2b1e00;
+  --color-success: #72d684;
+  --color-danger: #ff6f5e;
+  --color-border: #2c303d;
+  --color-border-strong: #3b4051;
+  --color-focus: #8fd3ff;
+
+  /* Typography roles. No web fonts: rounded system faces where the platform has them. */
+  --font-display:
+    ui-rounded, 'SF Pro Rounded', 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif;
+  --font-body:
+    'Segoe UI Variable Text', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+
+  --text-label: 0.6875rem;
+  --text-body: 0.9375rem;
+  --text-heading: 1.125rem;
+  --text-numeric: 1.375rem;
+  --text-display: 1.5rem;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --control-height: 48px;
+  --lip: 4px;
+  --shell-max-width: 1280px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
