@@ -1,24 +1,26 @@
 # Chicken Crossing
 
-A step-by-step crash game in the style of Chicken Road. You place a bet, the chicken crosses a
-road one lane at a time, and every lane it survives raises the multiplier. Cash out whenever
-you like, or keep going and risk losing the bet to a car.
+**Русский** · [English](README.en.md)
 
-It runs entirely in the browser against a mock engine with a $1000 demo balance. There is no
-backend and no real money.
+Пошаговая краш-игра в духе Chicken Road. Вы делаете ставку, курица переходит дорогу полоса за
+полосой, и каждая пройденная полоса повышает множитель. Забрать выигрыш можно в любой момент,
+а можно идти дальше и рискнуть ставкой: машина может сбить курицу.
 
-Play it at https://NikolayYaroslavcev.github.io/chicken-crossing-pixi/.
+Игра целиком работает в браузере на мок-движке с демо-балансом $1000. Бэкенда и реальных денег
+нет.
+
+Играть можно здесь: https://NikolayYaroslavcev.github.io/chicken-crossing-pixi/.
 
 ![Chicken Crossing](docs/screenshot.png)
 
-## Stack
+## Стек
 
-React 19, TypeScript, Vite, PixiJS 8, GSAP, Zustand and @pixi/sound. Tests use Vitest, Testing
-Library and Playwright; linting and formatting use ESLint and Prettier.
+React 19, TypeScript, Vite, PixiJS 8, GSAP, Zustand и @pixi/sound. Тесты на Vitest, Testing
+Library и Playwright; линтинг и форматирование через ESLint и Prettier.
 
-## Running it
+## Запуск
 
-Requires Node 22 (see `.nvmrc`).
+Нужен Node 22 (см. `.nvmrc`).
 
 ```sh
 npm install
@@ -27,33 +29,35 @@ npm run build      # typecheck and production build into dist/
 npm run preview    # serve dist/ at http://localhost:4173/chicken-crossing-pixi/
 ```
 
-## Game rules
+## Правила игры
 
-- **Bet** between $0.01 and $200, with at most two decimals.
-- **Difficulty** sets how many lanes there are and how dangerous they are:
+- **Ставка** от $0.01 до $200, не больше двух знаков после запятой.
+- **Сложность** задаёт количество полос и их опасность:
 
-  | Level    | Steps | First multiplier | Final multiplier |
-  | -------- | ----- | ---------------- | ---------------- |
-  | Easy     | 24    | x1.02            | x24.50           |
-  | Medium   | 22    | x1.11            | x2,254.00        |
-  | Hard     | 20    | x1.22            | x52,067.40       |
-  | Hardcore | 15    | x1.63            | x3,203,384.80    |
+  | Уровень  | Шагов | Первый множитель | Финальный множитель |
+  | -------- | ----- | ---------------- | ------------------- |
+  | Easy     | 24    | x1.02            | x24.50              |
+  | Medium   | 22    | x1.11            | x2,254.00           |
+  | Hard     | 20    | x1.22            | x52,067.40          |
+  | Hardcore | 15    | x1.63            | x3,203,384.80       |
 
-- **Play** takes the bet and makes the first step straight away.
-- **Step** (Go): the chicken hops onto the next lane. If it survives, the multiplier goes up.
-- **Crash**: a car hits the chicken and the bet is lost.
-- **Cash out** pays the bet times the current multiplier. It is available from the first
-  survived lane on.
-- **Finish**: surviving the last lane pays the level's top multiplier automatically.
+- **Play** принимает ставку и сразу делает первый шаг.
+- **Шаг** (Go): курица прыгает на следующую полосу. Если она проходит её, множитель растёт.
+- **Crash**: машина сбивает курицу, ставка проиграна.
+- **Cash out** выплачивает ставку, умноженную на текущий множитель. Доступен начиная с первой
+  пройденной полосы.
+- **Финиш**: если пройдена последняя полоса, автоматически выплачивается максимальный множитель
+  уровня.
 
-Each level hides a fixed number of traps among 25 positions (1, 3, 5 and 10 from Easy to
-Hardcore), and the number of steps is 25 minus the traps. The multiplier for step _k_ is
-`0.98 / P(k)`, where `P(k)` is the chance of surviving _k_ steps, so every cash-out point has a
-98% expected return. Multipliers and payouts are rounded down to the cent.
+На каждом уровне среди 25 позиций скрыто фиксированное число ловушек (1, 3, 5 и 10 от Easy до
+Hardcore), а число шагов равно 25 минус число ловушек. Множитель для шага _k_ равен
+`0.98 / P(k)`, где `P(k)` это вероятность пройти _k_ шагов, так что в каждой точке cash-out
+ожидаемый возврат составляет 98%. Множители и выплаты округляются вниз до цента.
 
-Keyboard: Space plays or takes the next step; Enter cashes out, or plays between rounds.
+Клавиатура: Space делает ставку или следующий шаг; Enter забирает выигрыш, а между раундами
+начинает игру.
 
-## Architecture
+## Архитектура
 
 ```text
 React UI  →  Zustand store  →  Engine
@@ -61,30 +65,31 @@ React UI  →  Zustand store  →  Engine
               GameScene  →  PixiJS
 ```
 
-- **Engine** (`src/engine`) is plain TypeScript. It owns the balance, validates bets and
-  decides every outcome; the losing step is drawn from a seeded RNG when the round starts. It
-  has no dependency on React, Pixi, Zustand, GSAP or sound, and an ESLint rule keeps it that
-  way. `MockEngine` answers asynchronously with a short delay, behind the same `GameEngine`
-  interface a server-backed engine would implement.
-- **Store** (`src/store`) is a vanilla Zustand store that runs a round: it calls the engine,
-  hands the result to the scene, waits for the animation, then updates its state. Input is
-  locked while either is in progress. It only knows the scene through a small interface
-  (`startRound`, `step`, `cashOut`, `reset`) and never touches Pixi objects. Balance, bet and
-  difficulty are saved to `localStorage`.
-- **Scene** (`src/game`) draws the road, chicken, traffic, camera and effects with PixiJS and
-  GSAP. It is told what happened and animates it; it never decides an outcome. Traffic is
-  decorative until the scene scripts a car for a crash the engine has already reported.
-- **UI** (`src/ui`) is React: header, bet and difficulty controls, action buttons and the
-  result panel. It reads the store and calls its actions. The canvas is mounted by
-  `GameCanvas`, which also shows the loading and error states with a retry.
-- **Sound** plays a click for accepted actions and cues for outcomes the scene shows. It has no
-  say in a round, and missing audio files are skipped. Mute is saved separately from the game
-  settings.
+- **Engine** (`src/engine`) это обычный TypeScript. Он хранит баланс, проверяет ставки и
+  решает все исходы; проигрышный шаг выбирается из RNG с seed в начале раунда. Он не зависит
+  от React, Pixi, Zustand, GSAP и звука, и правило ESLint это обеспечивает. `MockEngine`
+  отвечает асинхронно с небольшой задержкой, через тот же интерфейс `GameEngine`, который
+  реализовал бы движок на сервере.
+- **Store** (`src/store`) это vanilla-стор Zustand, который ведёт раунд: вызывает движок,
+  передаёт результат сцене, ждёт анимацию и затем обновляет своё состояние. Пока идёт одно
+  из двух, ввод заблокирован. О сцене он знает только через небольшой интерфейс
+  (`startRound`, `step`, `cashOut`, `reset`) и никогда не трогает объекты Pixi. Баланс, ставка
+  и сложность сохраняются в `localStorage`.
+- **Scene** (`src/game`) рисует дорогу, курицу, трафик, камеру и эффекты с помощью PixiJS и
+  GSAP. Ей сообщают, что произошло, и она это анимирует; исход она никогда не решает. Трафик
+  остаётся декоративным, пока сцена не запустит по сценарию машину для краша, о котором движок
+  уже сообщил.
+- **UI** (`src/ui`) написан на React: шапка, управление ставкой и сложностью, кнопки действий
+  и панель результата. Он читает стор и вызывает его действия. Canvas монтируется
+  через `GameCanvas`, который также показывает состояния загрузки и ошибки с повтором.
+- **Sound** воспроизводит клик для принятых действий и сигналы для исходов, которые показывает
+  сцена. На ход раунда он не влияет, а отсутствующие аудиофайлы пропускаются. Отключение
+  звука сохраняется отдельно от настроек игры.
 
-Rounds can't start until the renderer and sprite atlas are ready. A failed load or engine
-call shows an error and leaves the game playable.
+Раунды не начинаются, пока не готовы рендерер и атлас спрайтов. Неудачная загрузка или сбой
+вызова движка показывает ошибку, но оставляет игру рабочей.
 
-## Testing
+## Тестирование
 
 ```sh
 npm test               # unit and integration tests (Vitest)
@@ -94,22 +99,22 @@ npm run typecheck
 npm run format:check
 ```
 
-The e2e suite builds the app and serves it with `VITE_ENGINE_SEED=104`, so rounds are the same
-on every run. Install the browser once with `npx playwright install chromium`. The tests run in
-desktop Chromium, with phone, tablet and landscape layouts covered by viewport sizes; other
-browsers and real devices are not part of the suite.
+E2E-набор собирает приложение и запускает его с `VITE_ENGINE_SEED=104`, поэтому раунды при
+каждом запуске одинаковые. Браузер нужно установить один раз: `npx playwright install chromium`.
+Тесты идут в десктопном Chromium, а раскладки для телефона, планшета и альбомной ориентации
+проверяются через размеры viewport; другие браузеры и реальные устройства в набор не входят.
 
-CI (`.github/workflows/ci.yml`) runs lint, format check, typecheck, unit tests and the build on
-every push. Pushes to `main` then deploy the build to GitHub Pages.
+CI (`.github/workflows/ci.yml`) на каждый push запускает линтинг, проверку форматирования,
+typecheck, unit-тесты и сборку. Push в `main` затем деплоит сборку на GitHub Pages.
 
-## Assets
+## Ассеты
 
-The sprite atlas and sound effects are original and generated from code in `scripts/`:
+Атлас спрайтов и звуковые эффекты оригинальные и генерируются кодом из `scripts/`:
 
 ```sh
 npm run assets:atlas   # needs the Playwright Chromium
 npm run assets:audio
 ```
 
-The multiplier font is Fredoka (SIL Open Font License 1.1) from `@fontsource-variable/fredoka`.
-See [docs/assets.md](docs/assets.md) for the atlas layout, the sound list and licences.
+Шрифт множителя это Fredoka (SIL Open Font License 1.1) из `@fontsource-variable/fredoka`.
+Раскладка атласа, список звуков и лицензии описаны в [docs/assets.md](docs/assets.md).
