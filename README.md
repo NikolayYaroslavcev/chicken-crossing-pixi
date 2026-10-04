@@ -9,6 +9,8 @@ backend and no real money.
 
 Play it at https://NikolayYaroslavcev.github.io/chicken-crossing-pixi/.
 
+![Chicken Crossing](docs/screenshot.png)
+
 ## Stack
 
 React 19, TypeScript, Vite, PixiJS 8, GSAP, Zustand and @pixi/sound. Tests use Vitest, Testing
