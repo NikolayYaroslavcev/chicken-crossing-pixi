@@ -1,4 +1,5 @@
 # Chicken Crossing
+
 [Русский](README.md) · **English**
 
 A step-by-step crash game in the style of Chicken Road. You place a bet, the chicken crosses a
